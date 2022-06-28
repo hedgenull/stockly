@@ -276,6 +276,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
+  popper_js (~> 2.9.3)
   puma (~> 5.0)
   rails (~> 7.0.3)
   selenium-webdriver
