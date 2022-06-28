@@ -1,3 +1,15 @@
 <h1>Stockly</h1>
-<p><em>The Rails-based Stock App that Knows What It's Doing</em></p>
-<%= StockQuote::Stock.company("fb").inspect %>
+<br />
+
+<%= form_with url: root_path, method: "get" do %>
+    <%= text_field_tag :ticker %>
+    <%= submit_tag "Look Up" %>
+<% end %>
+
+<% if @stock %>
+    <%= @stock.company_name %>
+<% elsif @nothing %>
+    <%= @nothing %>
+<% elsif @junk %>
+    <%= @junk %>
+<% end %>
