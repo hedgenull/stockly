@@ -8,6 +8,8 @@
 
 <% if @stock %>
     <%= @stock.company_name %>
+    <br />
+    <%= @stock.latest_price %>
 <% elsif @nothing %>
     <%= @nothing %>
 <% elsif @junk %>
