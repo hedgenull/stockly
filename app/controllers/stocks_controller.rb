@@ -1,5 +1,7 @@
 class StocksController < ApplicationController
   before_action :set_stock, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :correct_user, only: %i[ edit update destroy ]
 
   # GET /stocks or /stocks.json
   def index
@@ -57,14 +59,20 @@ class StocksController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_stock
-      @stock = Stock.find(params[:id])
-    end
+  def correct_user
+    @ticker = current_user.stocks.find_by(id: params[:id])
+    redirect_to stocks_path, notice: "Not authorized to edit this stock!" if @ticker.nil?
+  end
 
-    # Only allow a list of trusted parameters through.
-    def stock_params
-      params.require(:stock).permit(:ticker, :user_id)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_stock
+    @stock = Stock.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def stock_params
+    params.require(:stock).permit(:ticker, :user_id)
+  end
 end
