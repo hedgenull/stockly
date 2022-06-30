@@ -16,7 +16,7 @@
   <tbody>
     <% @stocks.each do |stock| %>
       <% if stock.user_id == current_user.id %>
-
+        <%= @err = nil %>
         <% if stock.ticker == "" %>
           <%= @err = "N/A" %>
         <% elsif stock.ticker %>
@@ -29,19 +29,19 @@
 
           <tr>
             <td>
-              <%= link_to @ticker.company_name, stock %>
+              <%= !@err ? (link_to @ticker.company_name, stock) : @err %>
             </td>
             <td>
-              <%= @ticker.symbol %>
+              <%= !@err ? @ticker.symbol : @err %>
             </td>
             <td>
-              $<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ",") %>
+              $<%= !@err ? number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ",") : @err %>
             </td>
             <td>
-              $<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ",") %>
+              $<%= !@err ? number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ",") : @err %>
             </td>
             <td>
-              $<%= number_with_precision(@ticker.week52_high, :precision => 2, :delimiter => ",") %>
+              $<%= !@err ? number_with_precision(@ticker.week52_high, :precision => 2, :delimiter => ",") : @err %>
             </td>
             <td>
               <%= link_to "Edit", edit_stock_path(stock) %>
