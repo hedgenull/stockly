@@ -1,17 +1,14 @@
 <h1>Stockly</h1>
 <br />
 
-<%= form_with url: root_path, method: "get" do %>
-    <%= text_field_tag :ticker %>
-    <%= submit_tag "Look Up" %>
-<% end %>
-
-<% if @stock %>
-    <%= @stock.company_name %>
-    <br />
-    <%= @stock.latest_price %>
-<% elsif @nothing %>
-    <%= @nothing %>
-<% elsif @junk %>
-    <%= @junk %>
+<% if user_signed_in? %>
+    <%= controller.redirect_to stocks_path %>
+<% else %>
+    <p class="lead">
+        <em>The Stock App that Knows What It's Doing</em>
+    </p>
+    <p>
+        Stockly is a Ruby on Rails web application that provides a simple interface to manage stocks.
+        Stockly boasts custom portfolios, live price updates, detailed share info, and more! Sign up to Stockly today!
+    </p>
 <% end %>
