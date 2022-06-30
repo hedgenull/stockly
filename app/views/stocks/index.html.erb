@@ -17,14 +17,10 @@
     <% @stocks.each do |stock| %>
       <% if stock.user_id == current_user.id %>
         <%= @err = nil %>
-        <% if stock.ticker == "" %>
-          <%= @err = "N/A" %>
-        <% elsif stock.ticker %>
           <% begin %>
             <%= @ticker = StockQuote::Stock.quote(stock.ticker) %>
           <% rescue RuntimeError, NoMethodError %>
             <%= @err = "N/A" %>
-          <% end %>
         <% end %>
 
           <tr>
