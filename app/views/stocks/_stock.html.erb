@@ -12,14 +12,19 @@
       <% end %>
         <h5><%= !@err ? @ticker.company_name : @err %></h5>
         </center>
+        <% if @ticker %>
         <p>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Ticker: <%= !@err ? @ticker.symbol : @err %></li>
             <li class="list-group-item">Latest Price: $<%= !@err ? number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ",") : @err %></li>
             <li class="list-group-item">Market Cap: $<%= !@err ? number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ",") : @err %></li>
             <li class="list-group-item">52-Week High: $<%= !@err ? number_with_precision(@ticker.week52_high, :precision => 2, :delimiter => ",") : @err %></li>
+            <li class="list-group-item">52-Week Low: $<%= !@err ? number_with_precision(@ticker.week52_low, :precision => 2, :delimiter => ",") : @err %></li>
+            <li class="list-group-item">Sector: <%= StockQuote::Stock.company(@ticker.symbol).sector %></li>
+            <li class="list-group-item">CEO: <%= StockQuote::Stock.company(@ticker.symbol).ceo %></li>
           </ul>
         </p>
+        <% end %>
     </div>
   </div>
 </div>
